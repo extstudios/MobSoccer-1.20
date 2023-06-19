@@ -1,0 +1,33 @@
+messages:
+  error:
+    unknownCommand: "&cUnknown command."
+    noPermission: "&cYou do not have permission to use that command"
+    playerNotFound: "&cCould not find player with name: %player%"
+    invalidTeam: "&cCould not find team with name: %team%"
+    gameInProgress: "&cA game is already in progress"
+    mobSpawnLocationNotSet: "&c A mob spawn location has not been set"
+    goalLocationsNotSet: "&cAt least 4 goal areas must be set to start the game"
+    teamStartLocationsNotSet: "&cAt least 4 starting areas must be set to start the game"
+    teamExitNotSet: "&cTeam exit has not been set"
+
+  commands:
+    giveSpoon: "You have been give the SPOON!!!"
+    goalLocationSet: "The goal for %team% has been set to your current location"
+    teamStartLocationSet: "Team start location for %team% has been set to your current location"
+    teamExitLocationSet: "Team exit location for all teams has been set to your current location"
+    mobSpawnLocationSet: "Mob Spawn location set to your current location!"
+    confirmPlayerAddedToTeam: "Player %player% has been added to team %team%."
+    confirmPlayerRemovedFromTeam: "Player %player% has been removed from team %team%"
+    tellPlayerAddedToTeam: "You have been added to team %team%."
+    tellPlayerRemovedFromTeam: "You have been removed from team %team%"
+    teamsCleared: "players have been removed from all the teams"
+    potionSpawnAreaSet: "Spawn area for potions set successfully"
+    teamNameChanged: "Team %team% changed to %newTeam% with color %color%"
+    scoreboardCleared: "The scoreboard has been cleared"
+
+  broadcast:
+    gameStarting: "The game will start in %seconds%"
+    gameStart: "Let the game begin!"
+    gameCancel: "The game has been cancelled!"
+    gameOver: "The game is over! %team% wins!"
+    teamScored: "%team% has scored!"

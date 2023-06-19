@@ -1,0 +1,77 @@
+name: MobSoccer-1.20
+version: '${project.version}'
+main: eextr0.mobsoccer.MobSoccer
+api-version: '1.20'
+
+permissions:
+  mobsoccer.commands.*:
+    default: op
+    description: Permission to use all mob soccer commands
+    children:
+      - mobsoccer.commands
+      - mobsoccer.start
+      - mobsoccer.spoon
+      - mobsoccer.setgoal
+      - mobsoccer.setteamstart
+      - mobsoccer.setteamexit
+      - mobsoccer.setmobspawn
+      - mobsoccer.setteam
+      - mobsoccer.cancel
+      - mobsoccer.clearteams
+      - mobsoccer.setpotionarea
+      - mobsoccer.changeteam
+      - mobsoccer.teams
+      - mobsoccer.clearscoreboard
+      - mobsoccer.removeteam
+  mobsoccer.commands:
+    default: op
+    description: Permission to use mob soccer commands
+  mobsoccer.start:
+    default: op
+    description: Permission for a player to use the /ms start command
+  mobsoccer.spoon:
+    default: op
+    description: Permission for a player to use the /ms spoon command
+  mobsoccer.setgoal:
+    default: op
+    description: Permission for a player to use the /ms setgoal command
+  mobsoccer.setteamstart:
+    default: op
+    description: Permission for a player to use the /ms setteamstart command
+  mobsoccer.setteamexit:
+    default: op
+    description: Permission for a player to use the /ms setteamexit command
+  mobsoccer.setmobspawn:
+    default: op
+    description: Permission for a player to use the /ms setmobspawn command
+  mobsoccer.setteam:
+    default: op
+    description: Permission for a player to use the /ms setteam command
+  mobsoccer.cancel:
+    default: op
+    description: Permission for a player to use the /ms cancel command
+  mobsoccer.clearteams:
+    default: op
+    description: Permission for a player to use the /ms clearteams command
+  mobsoccer.setpotionarea:
+    default: op
+    description: Permission for a player to use the /ms setpotionarea command
+  mobsoccer.changeteam:
+    default: op
+    description: Permission for a player to use the /ms changeteam command
+  mobsoccer.teams:
+    default: op
+    description: Permission for a player to use the /ms teams command
+  mobsoccer.clearscoreboard:
+    default: op
+    description: Permission for a player to use the /ms clearscoreboard command
+  mobsoccer.removeteam:
+    default: op
+    description: Permission for a player to use the /ms removeteam command
+
+commands:
+  ms:
+    permissions: mobsoccer.commands
+    description: run mobsoccer commands
+    aliases:
+      - mobsoccer

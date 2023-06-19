@@ -1,0 +1,14 @@
+world: 'world'
+scoreboardSize: 13
+scoreboardHeight: 11
+scoreboardWidth: 23
+entityTypes:
+  - ZOMBIE
+  - SKELETON
+  - STRAY
+  - WITCH
+  - PIGLIN
+  - PIGLIN_BRUTE
+  - ZOMBIFIED_PIGLIN
+  - ZOMBIE_VILLAGER
+  - HUSK
