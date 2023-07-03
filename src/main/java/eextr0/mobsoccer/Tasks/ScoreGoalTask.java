@@ -16,13 +16,15 @@ public class ScoreGoalTask extends BukkitRunnable {
     private final MobSoccer plugin;
     private final TeamScoreManager teamScoreManager;
     private final TeamManager teamManager;
+    private final CreateScoreboardDisplayTask createScoreboardDisplayTask;
     private final World world;
 
-    public ScoreGoalTask(MobSoccer plugin, TeamScoreManager teamScoreManager, TeamManager teamManager) {
+    public ScoreGoalTask(MobSoccer plugin, TeamScoreManager teamScoreManager, TeamManager teamManager, CreateScoreboardDisplayTask createScoreboardDisplayTask) {
         this.plugin = plugin;
         this.world = plugin.getWorld();
         this.teamScoreManager = teamScoreManager;
         this.teamManager = teamManager;
+        this.createScoreboardDisplayTask = createScoreboardDisplayTask;
     }
 
     @Override
@@ -35,6 +37,8 @@ public class ScoreGoalTask extends BukkitRunnable {
                         Team team = teamManager.getTeamByName(teamName);
                         if (team != null) {
                             teamScoreManager.incrementTeamScore(teamName);
+                            Location scoreboardLocation = plugin.getScoreboardLocation();
+                            createScoreboardDisplayTask.createDisplay(plugin.teamScores, scoreboardLocation);
                             ChatColor teamColor = team.getColor();
                             world.getPlayers().forEach(player -> player.sendMessage(plugin.getMessagesConfigManager().getBroadcastMessages().get("teamScored").replace("%team%", teamName)));
                             world.playSound(goalLocation, Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1.0f, 1.0f);

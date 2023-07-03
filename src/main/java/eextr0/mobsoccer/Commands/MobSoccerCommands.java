@@ -104,8 +104,11 @@ public class MobSoccerCommands implements CommandExecutor {
                         teamScoreManager.setTeamScore(teamNames.get(i), 0);
                     }
 
+                    Location scoreboardLocation = plugin.getScoreboardLocation();
+                    createScoreboardDisplayTask.createDisplay(plugin.teamScores, scoreboardLocation);
+
                     plugin.gameRunning = true;
-                    new StartGameTask(plugin, teamManager, teamScoreManager, teamScoreWatcher).runTaskTimer(plugin, 0L, 20L);
+                    new StartGameTask(plugin, teamManager, teamScoreManager, teamScoreWatcher, createScoreboardDisplayTask).runTaskTimer(plugin, 0L, 20L);
                     return true;
                 } else {
                     commandSender.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("noPermission"));
@@ -284,7 +287,7 @@ public class MobSoccerCommands implements CommandExecutor {
                 if (commandSender instanceof Player p && p.hasPermission("mobsoccer.clearteams")) {
 
                     for (Team team : scoreboard.getTeams()) {
-                        team.getEntries().forEach(team::removeEntry);
+                        team.getEntries().forEach(entry -> team.removeEntry(entry));
                     }
                     p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("teamsCleared"));
                     return true;
@@ -309,9 +312,22 @@ public class MobSoccerCommands implements CommandExecutor {
                     }
 
                     Location location = p.getLocation();
-                    plugin.setScoreboardLocation(location);
                     createScoreboardDisplayTask.createDisplay(plugin.teamScores, location);
-                    p.sendMessage("Scoreboard location has been set to your current location");
+                    p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("scoreboardLocationSet"));
+                    return true;
+                } else {
+                    commandSender.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("noPermission"));
+                }
+            }
+            case "rotatescoreboard" -> {
+                if (commandSender instanceof Player p && p.hasPermission("mobsoccer.rotatescoreboard")) {
+                    if (args.length > 1) {
+                        p.sendMessage("Usage: /ms rotatescoreboard");
+                    }
+
+                    Location location = plugin.getScoreboardLocation();
+                    createScoreboardDisplayTask.rotateScoreboard(location, plugin.teamScores);
+                    p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("scoreboardRotated"));
                     return true;
                 } else {
                     commandSender.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("noPermission"));
@@ -321,6 +337,7 @@ public class MobSoccerCommands implements CommandExecutor {
                 if (commandSender instanceof Player p && p.hasPermission("mobsoccer.changeteam")) {
                     if (args.length < 4) {
                         p.sendMessage("Usage: /ms changteam <teamName> <newTeamName> <newColor>");
+                        return true;
                     }
                     String teamName = args[1];
                     String newTeamName = args[2];
@@ -352,8 +369,10 @@ public class MobSoccerCommands implements CommandExecutor {
                         plugin.teamScores.remove(teamName, score);
                         plugin.teamScores.put(newTeamName, score);
                     }
-                    createScoreboardDisplayTask.createDisplay(plugin.teamScores, plugin.getScoreboardLocation());
-
+                    Location scoreboardLocation = plugin.getScoreboardLocation();
+                    scoreboardLocation.subtract(0,2,0);
+                    createScoreboardDisplayTask.createDisplay(plugin.teamScores, scoreboardLocation);
+                    return true;
                 } else {
                     commandSender.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("noPermission"));
                 }

@@ -23,6 +23,7 @@ permissions:
       - mobsoccer.teams
       - mobsoccer.clearscoreboard
       - mobsoccer.removeteam
+      - mobsoccer.setscoreboardlocation
   mobsoccer.commands:
     default: op
     description: Permission to use mob soccer commands
@@ -68,6 +69,9 @@ permissions:
   mobsoccer.removeteam:
     default: op
     description: Permission for a player to use the /ms removeteam command
+  mobsoccer.setscoreboardlocation:
+    default: op
+    description: Permission for a player to use the /ms setscoreboardlocation command
 
 commands:
   ms:

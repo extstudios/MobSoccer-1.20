@@ -23,7 +23,7 @@ messages:
     teamsCleared: "players have been removed from all the teams"
     potionSpawnAreaSet: "Spawn area for potions set successfully"
     teamNameChanged: "Team %team% changed to %newTeam% with color %color%"
-    scoreboardCleared: "The scoreboard has been cleared"
+    scoreboardLocationSet: "The scoreboard location has been set to your current location"
 
   broadcast:
     gameStarting: "The game will start in %seconds%"

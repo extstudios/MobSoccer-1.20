@@ -19,12 +19,15 @@ public class StartGameTask extends BukkitRunnable {
     private final TeamScoreManager teamScoreManager;
     private final TeamManager teamManager;
     private final TeamScoreWatcher teamScoreWatcher;
+    private final CreateScoreboardDisplayTask createScoreboardDisplayTask;
 
-    public StartGameTask(MobSoccer plugin,TeamManager teamManager, TeamScoreManager teamScoreManager, TeamScoreWatcher teamScoreWatcher) {
+    public StartGameTask(MobSoccer plugin,TeamManager teamManager, TeamScoreManager teamScoreManager, TeamScoreWatcher teamScoreWatcher,
+                         CreateScoreboardDisplayTask createScoreboardDisplayTask) {
         this.plugin = plugin;
         this.teamManager = teamManager;
         this.teamScoreManager = teamScoreManager;
         this.teamScoreWatcher = teamScoreWatcher;
+        this.createScoreboardDisplayTask = createScoreboardDisplayTask;
     }
 
     private int countdown = 5;
@@ -49,7 +52,7 @@ public class StartGameTask extends BukkitRunnable {
             scoreboardLocation.add(0,2,0);
             MobSpawnTask mobSpawnTask = new MobSpawnTask(plugin);
             mobSpawnTask.runTaskTimer(plugin, 0, 200);
-            ScoreGoalTask scoreGoalTask = new ScoreGoalTask(plugin, teamScoreManager, teamManager);
+            ScoreGoalTask scoreGoalTask = new ScoreGoalTask(plugin, teamScoreManager, teamManager, createScoreboardDisplayTask);
             scoreGoalTask.runTaskTimer(plugin, 0, 20);
             new BukkitRunnable() {
 

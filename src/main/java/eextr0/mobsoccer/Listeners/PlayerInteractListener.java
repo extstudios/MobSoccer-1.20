@@ -4,16 +4,10 @@ import eextr0.mobsoccer.MobSoccer;
 import eextr0.mobsoccer.Tasks.CreateScoreboardDisplayTask;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 
 public class PlayerInteractListener implements Listener {

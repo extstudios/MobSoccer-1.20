@@ -40,6 +40,7 @@ public final class MobSoccer extends JavaPlugin implements Listener {
     public Location potionSpawnArea;
     private Location teamExit;
     private Location scoreboardLocation;
+    private String scoreboardText;
     public String winningTeam;
     public InputStream messagesConfigStream;
     public File messagesFile;
@@ -58,10 +59,12 @@ public final class MobSoccer extends JavaPlugin implements Listener {
     }
     public Location getTeamExit() {return teamExit;}
     public Location getScoreboardLocation() {return scoreboardLocation;}
+
+    public String getScoreboardText() {return scoreboardText;}
     public World getWorld() {
         return Bukkit.getWorld(world);
     }
-    public Integer getScoreboardSize() {return this.scoreboardSize;}
+    public Integer getScoreboardSize() {return scoreboardSize;}
 
     public void setMobSpawnLocation(Location mobSpawnLocation) {
         this.mobSpawnLocation = mobSpawnLocation;
@@ -78,6 +81,8 @@ public final class MobSoccer extends JavaPlugin implements Listener {
     }
     public void setScoreboardLocation(Location scoreboardLocation) {this.scoreboardLocation = scoreboardLocation;
     }
+
+    public void setScoreboardText(String scoreboardText) {this.scoreboardText = scoreboardText;}
     public void setGoalLocationConfig(HashMap<String, Location> hashMap) {
         locationConfigManager.setHashMap("locations.goallocations", hashMap);
     }
@@ -187,6 +192,9 @@ public final class MobSoccer extends JavaPlugin implements Listener {
         for (Team team : this.teams) {
             team.unregister();
         }
+        TeamManager teamManager = new TeamManager(scoreboard);
+        CreateScoreboardDisplayTask createScoreboardDisplayTask = new CreateScoreboardDisplayTask(this, teamManager);
+        createScoreboardDisplayTask.removeTextDisplay();
         for (Entity entity : this.getWorld().getEntities()) {
             if (entity instanceof Monster && !entity.isDead() && entity.getCustomName() != null && entity.getCustomName().equals("ball")) {
                 entity.remove();

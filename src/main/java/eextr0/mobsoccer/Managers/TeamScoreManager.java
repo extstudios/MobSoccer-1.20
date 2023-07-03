@@ -8,6 +8,7 @@ public class TeamScoreManager {
 
     private final MobSoccer plugin;
     private final CreateScoreboardDisplayTask createScoreboardDisplayTask;
+    private boolean isFirstGoal = false;
 
     public TeamScoreManager(MobSoccer plugin, CreateScoreboardDisplayTask createScoreboardDisplayTask) {
         this.plugin = plugin;
@@ -17,12 +18,20 @@ public class TeamScoreManager {
 
     public void setTeamScore(String teamName, int score) {
         plugin.teamScores.put(teamName, score);
+        isFirstGoal = false;
+    }
+    public void changeTeamScore(String teamName, int score) {
+        plugin.teamScores.replace(teamName, score);
     }
     public void incrementTeamScore(String teamName) {
         int currentScore = plugin.teamScores.getOrDefault(teamName, 0);
-        plugin.teamScores.put(teamName, currentScore + 1);
+        changeTeamScore(teamName, currentScore + 1);
         Location scoreboardLocation = plugin.getScoreboardLocation();
+        if(!isFirstGoal) {
+            scoreboardLocation.subtract(0,2,0);
+        }
         createScoreboardDisplayTask.createDisplay(plugin.teamScores, scoreboardLocation);
+        isFirstGoal = true;
     }
 
     public int getTeamScores(String teamName) {

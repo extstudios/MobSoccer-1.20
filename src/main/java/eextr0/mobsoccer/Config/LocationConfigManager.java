@@ -15,7 +15,6 @@ public class LocationConfigManager extends ConfigManager{
     private Location mobspawnLocation;
     private Location teamExitLocation;
     private Location potionSpawnArea;
-    private Location scoreboardLocation;
     public LocationConfigManager(MobSoccer plugin) {
 
         super(plugin);
