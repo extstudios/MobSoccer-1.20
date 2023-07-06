@@ -64,6 +64,7 @@ public class MobSoccerCommands implements CommandExecutor {
             commandSender.sendMessage("/ms setteam <player> <team> - assign player to the specified team");
             commandSender.sendMessage("/ms clearteams - removes players from all teams");
             commandSender.sendMessage("/ms changeteam <teamName> <newTeamName> <newTeamColor> - change a team's name and color");
+            commandSender.sendMessage("/ms checkteam <player> - check a player's team");
             commandSender.sendMessage("/ms clearscoreboard - remove scoreboard from all players");
 
             return true;
@@ -128,7 +129,8 @@ public class MobSoccerCommands implements CommandExecutor {
                         ItemStack spoon = SpoonUtils.createSpoon();
                         Player checkPlayer = Bukkit.getPlayer(playerName);
                         if (checkPlayer == null) {
-                            p.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("playerNotFound").replace("%player%", playerName));
+                            p.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("playerNotFound")
+                                    .replace("%player%", playerName));
                             return true;
                         }
                         checkPlayer.getInventory().addItem(spoon);
@@ -152,9 +154,11 @@ public class MobSoccerCommands implements CommandExecutor {
                         Location location = p.getLocation();
                         plugin.goalLocation.put(teamName, location);
                         plugin.setGoalLocationConfig(plugin.goalLocation);
-                        p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("goalLocationSet").replace("%team%", teamName));
+                        p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("goalLocationSet")
+                                .replace("%team%", teamName));
                     } else {
-                        p.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("invalidTeam").replace("%team%", teamName));
+                        p.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("invalidTeam")
+                                .replace("%team%", teamName));
                     }
                     return true;
                 } else {
@@ -174,9 +178,11 @@ public class MobSoccerCommands implements CommandExecutor {
                         Location location = p.getLocation();
                         plugin.teamStartLocation.put(teamName, location);
                         plugin.setTeamStartLocationConfig(plugin.teamStartLocation);
-                        p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("teamStartLocationSet").replace("%team%", teamName));
+                        p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("teamStartLocationSet")
+                                .replace("%team%", teamName));
                     } else {
-                        p.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("invalidTeam").replace("%team%", teamName));
+                        p.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("invalidTeam")
+                                .replace("%team%", teamName));
                     }
 
                 } else {
@@ -234,14 +240,17 @@ public class MobSoccerCommands implements CommandExecutor {
                     Player checkPlayer = Bukkit.getPlayer(playerName);
 
                     if (checkPlayer == null) {
-                        p.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("playerNotFound").replace("%player%", playerName));
+                        p.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("playerNotFound")
+                                .replace("%player%", playerName));
                         return true;
                     }
 
                     team.addEntry(playerName);
-                    p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("confirmPlayerAddedToTeam").replace("%player%", playerName)
+                    p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("confirmPlayerAddedToTeam")
+                            .replace("%player%", playerName)
                             .replace("%team%", teamName));
-                    checkPlayer.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("tellPlayerAddedToTeam").replace("%team%", teamName));
+                    checkPlayer.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("tellPlayerAddedToTeam")
+                            .replace("%team%", teamName));
                     plugin.playerTeams.put(checkPlayer, team);
                     return true;
 
@@ -267,9 +276,12 @@ public class MobSoccerCommands implements CommandExecutor {
                         return true;
                     }
                     team.removeEntry(playerName);
-                    p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("confirmPlayerRemovedFromTeam").replace("%player%", playerName)
+                    p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("confirmPlayerRemovedFromTeam")
+                            .replace("%player%", playerName)
                             .replace("%team%", teamName));
-                    checkPlayer.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("tellPlayerRemovedFromTeam").replace("%team%", teamName));
+                    checkPlayer.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("tellPlayerRemovedFromTeam")
+                            .replace("%team%", teamName));
+
                     plugin.playerTeams.remove(checkPlayer, team);
                     return true;
                 }
@@ -335,15 +347,13 @@ public class MobSoccerCommands implements CommandExecutor {
             }
             case "changeteam" -> {
                 if (commandSender instanceof Player p && p.hasPermission("mobsoccer.changeteam")) {
-                    if (args.length < 4) {
+                    if (args.length != 4) {
                         p.sendMessage("Usage: /ms changteam <teamName> <newTeamName> <newColor>");
                         return true;
                     }
                     String teamName = args[1];
                     String newTeamName = args[2];
                     Team team = teamManager.getTeamByName(teamName);
-
-                    if (args.length == 4) {
                         ChatColor newColor = ChatColor.valueOf(args[3].toUpperCase());
 
                         if (team == null) {
@@ -351,28 +361,28 @@ public class MobSoccerCommands implements CommandExecutor {
                             return true;
                         }
                         teamManager.setTeamName(teamName, newTeamName, newColor);
-                        p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("teamNameChanged").replace("%team%",teamName)
-                                .replace("%newTeam%", newTeamName).replace("%color", newColor.toString()));
-                    }
-                    if (plugin.goalLocation.get(teamName) != null) {
-                        Location goalLocation = plugin.goalLocation.get(teamName);
-                        plugin.goalLocation.remove(teamName, goalLocation);
-                        plugin.goalLocation.put(newTeamName, goalLocation);
-                    }
-                    if (plugin.teamStartLocation.get(teamName) != null) {
-                        Location teamStartLocation = plugin.teamStartLocation.get(teamName);
-                        plugin.teamStartLocation.remove(teamName, teamStartLocation);
-                        plugin.teamStartLocation.put(newTeamName, teamStartLocation);
-                    }
-                    if(plugin.teamScores.containsKey(teamName)) {
-                        Integer score = plugin.teamScores.get(teamName);
-                        plugin.teamScores.remove(teamName, score);
-                        plugin.teamScores.put(newTeamName, score);
-                    }
-                    Location scoreboardLocation = plugin.getScoreboardLocation();
-                    scoreboardLocation.subtract(0,2,0);
-                    createScoreboardDisplayTask.createDisplay(plugin.teamScores, scoreboardLocation);
-                    return true;
+                        p.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("teamNameChanged")
+                                .replace("%team%",teamName)
+                                .replace("%newTeam%", newTeamName)
+                                .replace(newColor + "%color%" , newColor.toString()));
+
+                        Location goalLocation = plugin.goalLocation.remove(teamName);
+                        Location teamStartLocation = plugin.teamStartLocation.remove(teamName);
+                        Integer score = plugin.teamScores.remove(teamName);
+
+                        if (goalLocation != null) {
+                            plugin.goalLocation.put(newTeamName, goalLocation);
+                        }
+                        if (teamStartLocation != null) {
+                            plugin.teamStartLocation.put(newTeamName, teamStartLocation);
+                        }
+                        if(score != null ) {
+                            plugin.teamScores.put(newTeamName, score);
+                        }
+                        Location scoreboardLocation = plugin.getScoreboardLocation();
+                        createScoreboardDisplayTask.createDisplay(plugin.teamScores, scoreboardLocation);
+
+                        return true;
                 } else {
                     commandSender.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("noPermission"));
                 }
@@ -384,6 +394,35 @@ public class MobSoccerCommands implements CommandExecutor {
                         commandSender.sendMessage(team.getColor() + team.getName());
                     }
 
+                }
+            }
+            case "checkteam" -> {
+                if(commandSender.hasPermission("mobsoccer.checkteam")) {
+                    if (args.length != 2) {
+                        commandSender.sendMessage("Usage: /ms checkteam <player>");
+                        return true;
+                    }
+
+                    String playerName = args[1];
+                    Player targetPlayer = Bukkit.getPlayer(playerName);
+                    if (targetPlayer == null || !targetPlayer.isOnline()) {
+                        commandSender.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("playerNotFound")
+                                .replace("%player%", playerName));
+                        return true;
+                    }
+                    Team team = teamManager.getTeamByPlayer(targetPlayer);
+                    if (team != null) {
+                        commandSender.sendMessage(plugin.getMessagesConfigManager().getCommandMessages().get("checkTeam")
+                                .replace("%player%", playerName)
+                                .replace("%team%", team.toString()));
+                    } else {
+                        commandSender.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("playerNotOnTeam")
+                                .replace("%player%", playerName));
+                    }
+
+                    return  true;
+                } else {
+                    commandSender.sendMessage(plugin.getMessagesConfigManager().getErrorMessages().get("noPermission"));
                 }
             }
             default ->

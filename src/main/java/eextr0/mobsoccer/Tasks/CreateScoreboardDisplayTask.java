@@ -56,8 +56,11 @@ public class CreateScoreboardDisplayTask {
         textDisplay.setGravity(false);
         textDisplay.setAlignment(TextDisplay.TextAlignment.LEFT);
         textDisplay.setTransformation(newScale);
+        textDisplay.setDisplayHeight(plugin.getConfig().getInt("scoreboardHeight"));
+        textDisplay.setDisplayWidth(plugin.getConfig().getInt("scoreboardWidth"));
         textDisplay.setCustomName("scoreboard");
         textDisplays.add(textDisplay);
+
         plugin.setScoreboardLocation(location);
         plugin.setScoreboardText(text);
     }
@@ -106,6 +109,8 @@ public class CreateScoreboardDisplayTask {
         textDisplay.setGravity(false);
         textDisplay.setAlignment(TextDisplay.TextAlignment.LEFT);
         textDisplay.setTransformation(newScale);
+        textDisplay.setDisplayHeight(plugin.getConfig().getInt("scoreboardHeight"));
+        textDisplay.setDisplayWidth(plugin.getConfig().getInt("scoreboardWidth"));
         textDisplay.setCustomName("scoreboard");
         textDisplays.add(textDisplay);
     }

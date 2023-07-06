@@ -9,6 +9,7 @@ messages:
     goalLocationsNotSet: "&cAt least 4 goal areas must be set to start the game"
     teamStartLocationsNotSet: "&cAt least 4 starting areas must be set to start the game"
     teamExitNotSet: "&cTeam exit has not been set"
+    playerNotOnTeam: "&c%player% is not on a team"
 
   commands:
     giveSpoon: "You have been give the SPOON!!!"
@@ -24,6 +25,7 @@ messages:
     potionSpawnAreaSet: "Spawn area for potions set successfully"
     teamNameChanged: "Team %team% changed to %newTeam% with color %color%"
     scoreboardLocationSet: "The scoreboard location has been set to your current location"
+    checkTeam: "%player% is on team: %team%"
 
   broadcast:
     gameStarting: "The game will start in %seconds%"

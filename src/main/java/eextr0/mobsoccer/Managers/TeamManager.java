@@ -2,6 +2,7 @@ package eextr0.mobsoccer.Managers;
 
 import eextr0.mobsoccer.MobSoccer;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -53,9 +54,17 @@ public class TeamManager {
         Team getTeam = getTeamByName(teamName);
         getTeam.unregister();
         teams.remove(getTeam);
-        createTeam(newName, newName, color);
-        Team getNewTeam = getTeamByName(newName);
-        teams.add(getNewTeam);
+        Team newTeam = createTeam(newName, newName, color);
+        teams.add(newTeam);
+    }
+
+    public Team getTeamByPlayer(Player player) {
+        for (Team team: teams) {
+            if (team.hasEntry(player.getName())) {
+                return team;
+            }
+        }
+        return null;
     }
     public ChatColor getTeamColor(Team team) {
         return team.getColor();
