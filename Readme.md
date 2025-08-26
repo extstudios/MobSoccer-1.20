@@ -1,12 +1,12 @@
 MobSoccer (Minecraft 1.20)
 ## Table of Contents
-• [Summary](#Summary)
-• [Installation](#Installation)
-• [Commands](#Commands)
-• [Configuration](#Configuration)
-• [Gameplay](#gameplay)
-• [Permissions](#permissions)
-• [Messages & Placeholders](#messages--placeholders)
+[Summary](#Summary)  
+[Installation](#Installation)  
+[Commands](#Commands)  
+[Configuration](#Configuration)  
+[Gameplay](#gameplay)  
+[Permissions](#permissions)  
+[Messages & Placeholders](#messages--placeholders)  
 
 ## Summary
 MobSoccer is a minigame where hostile mobs (“the ball”) spawn at a set point and players use a knockback stick (“Spoon!”) to whack the mob into their team’s goal. Teams score points when the mob enters their goal area. A text-display scoreboard shows team scores in-world.
