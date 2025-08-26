@@ -51,7 +51,7 @@ public class CreateScoreboardDisplayTask {
         Transformation transformation = textDisplay.getTransformation();
         Transformation newScale = new Transformation(transformation.getTranslation(), transformation.getLeftRotation(), transformation.getScale().mul(plugin.getScoreboardSize()), transformation.getRightRotation());
         textDisplay.setText(text);
-        textDisplay.setBillboard(Display.Billboard.FIXED);
+        textDisplay.setBillboard(Display.Billboard.VERTICAL);
         textDisplay.setVisibleByDefault(true);
         textDisplay.setGravity(false);
         textDisplay.setAlignment(TextDisplay.TextAlignment.LEFT);
@@ -104,7 +104,7 @@ public class CreateScoreboardDisplayTask {
         transformation.getLeftRotation().y = (float) scoreboardRotation;
         Transformation newScale = new Transformation(transformation.getTranslation(), transformation.getLeftRotation(), transformation.getScale().mul(plugin.getScoreboardSize()), transformation.getRightRotation());
         textDisplay.setText(text);
-        textDisplay.setBillboard(Display.Billboard.FIXED);
+        textDisplay.setBillboard(Display.Billboard.VERTICAL);
         textDisplay.setVisibleByDefault(true);
         textDisplay.setGravity(false);
         textDisplay.setAlignment(TextDisplay.TextAlignment.LEFT);
